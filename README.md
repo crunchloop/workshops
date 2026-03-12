@@ -2,7 +2,7 @@
 
 Internal workshop hub for Crunchloop.
 
-Hosted at `workshops.tail21f0.ts.net`.
+Hosted at `https://workshops.tail21f0.ts.net`.
 
 ## Workshops
 
