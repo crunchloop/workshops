@@ -1,0 +1,40 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/crunchloop/workshops
+  pullPolicy: Always
+  tag: "latest"
+
+imagePullSecrets:
+  - name: ghcr-secret
+
+service:
+  type: ClusterIP
+  port: 8090
+
+ingress:
+  enabled: true
+  className: tailscale
+  hostname: workshops
+  tags: tag:k8s
+  funnel: false
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+nodeSelector:
+  karpenter.sh/nodepool: spot-general
+
+externalSecret:
+  enabled: true
+  refreshInterval: 1h
+
+serviceAccount:
+  create: true
+  name: workshops
+  annotations: {}

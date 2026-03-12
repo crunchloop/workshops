@@ -1,0 +1,33 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/crunchloop/workshops
+  pullPolicy: Always
+  tag: "latest"
+
+service:
+  port: 8090
+
+ingress:
+  enabled: true
+  className: tailscale
+  hostname: workshops
+  tags: tag:k8s
+  funnel: false
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+nodeSelector:
+  karpenter.sh/nodepool: spot-general
+
+serviceAccount:
+  create: true
+  name: workshops
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::176434290504:role/workshops-external-secrets

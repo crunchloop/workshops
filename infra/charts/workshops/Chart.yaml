@@ -1,0 +1,6 @@
+apiVersion: v2
+name: workshops
+description: Internal workshop hub for Crunchloop
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
