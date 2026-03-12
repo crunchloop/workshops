@@ -7,5 +7,5 @@ Add your favorite tool to the list!
 | Damian | Vim | It's always there |
 | Participant 1 | ? | ? |
 | Participant 2 | ? | ? |
-| Participant 3 | ? | ? |
+| Camilla | Claude | my best friend |
 | Participant 4 | ? | ? |
