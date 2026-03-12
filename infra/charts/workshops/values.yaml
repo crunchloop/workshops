@@ -33,6 +33,7 @@ nodeSelector:
 externalSecret:
   enabled: true
   refreshInterval: 1h
+  roleArn: ""
 
 serviceAccount:
   create: true

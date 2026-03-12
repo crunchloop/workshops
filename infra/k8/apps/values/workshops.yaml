@@ -32,4 +32,5 @@ serviceAccount:
   annotations: {}
 
 externalSecret:
-  enabled: false
+  enabled: true
+  roleArn: arn:aws:iam::176434290504:role/workshops-external-secrets
