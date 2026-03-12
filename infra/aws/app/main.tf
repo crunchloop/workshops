@@ -1,31 +1,51 @@
 terraform {
+  required_version = ">= 1.5.7"
+
   backend "s3" {
-    bucket = "crunchloop-terraform-state"
-    key    = "workshops/app/terraform.tfstate"
-    region = "sa-east-1"
+    bucket = "terraform-crunchloop-aws"
+    key    = "apps-workshops.tfstate"
+    region = "us-east-1"
   }
 
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.0"
+      version = "~> 6.20"
     }
   }
 }
 
-provider "aws" {
-  region = var.aws_region
+locals {
+  aws_region  = "sa-east-1"
+  github_repo = "crunchloop/workshops"
 }
 
-data "terraform_remote_state" "vpc" {
-  backend = "s3"
-  config = {
-    bucket = "crunchloop-terraform-state"
-    key    = "crunchloop-vpc-dev/terraform.tfstate"
-    region = "sa-east-1"
+provider "aws" {
+  region  = local.aws_region
+  profile = "development"
+
+  allowed_account_ids = [
+    "176434290504"
+  ]
+
+  default_tags {
+    tags = {
+      Terraform   = "true"
+      Application = "workshops"
+      Environment = "dev"
+    }
   }
 }
 
-data "aws_eks_cluster" "k8_dev" {
-  name = var.eks_cluster_name
+# Remote state: EKS cluster (for OIDC provider)
+data "terraform_remote_state" "eks" {
+  backend = "s3"
+  config = {
+    bucket = "terraform-crunchloop-aws"
+    key    = "crunchloop-k8-dev.tfstate"
+    region = "us-east-1"
+  }
 }
+
+# AWS caller identity
+data "aws_caller_identity" "current" {}

@@ -29,5 +29,4 @@ nodeSelector:
 serviceAccount:
   create: true
   name: workshops
-  annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::176434290504:role/workshops-external-secrets
+  annotations: {}
