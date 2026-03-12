@@ -612,6 +612,32 @@
         <p class="fragment" style="font-size: 0.85em;" data-i18n="conflict2.resolution"></p>
       </section>
 
+      <!-- CONFLICT EXAMPLE -->
+      <section>
+        <h2 style="font-size: 1.4em;" data-i18n="conflict_ex.title"></h2>
+        <p style="font-size: 0.65em; margin-bottom: 0.2em;" data-i18n="conflict_ex.scenario"></p>
+        <div class="conflict-block" style="font-size: 0.55em; max-width: 85%; padding: 0.4em 0.8em; line-height: 1.4;">
+          <span style="color: #586069; display: block;">| Name | Fun Fact |</span>
+          <span style="color: #586069; display: block;">|------|----------|</span>
+          <span class="marker">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span>
+          <span class="ours">| Ana  | I love hiking |</span>
+          <span class="marker">=======</span>
+          <span class="theirs">| Ana  | I love surfing |</span>
+          <span class="marker">&gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/main</span>
+        </div>
+        <div class="fragment" style="margin-top: 0.3em;">
+          <p style="font-size: 0.7em; font-weight: 700; margin-bottom: 0.1em;" data-i18n="conflict_ex.fix_label"></p>
+          <div style="background: #e6ffed; border: 1px solid #28a745; border-radius: 6px; padding: 0.3em 0.8em; max-width: 85%; margin: 0 auto; font-family: monospace; font-size: 0.55em; text-align: left; line-height: 1.4;">
+            <span style="display: block;">| Ana  | I love hiking and surfing |</span>
+          </div>
+        </div>
+        <ol class="fragment step-list" style="margin-top: 0.3em; font-size: 0.6em;">
+          <li data-i18n="conflict_ex.step1"></li>
+          <li data-i18n="conflict_ex.step2"></li>
+          <li data-i18n="conflict_ex.step3"></li>
+        </ol>
+      </section>
+
       <!-- PART 5 HEADER -->
       <section data-background-color="#f6f8fa">
         <h3 style="color: #586069;" data-i18n="part5.label"></h3>
@@ -871,6 +897,13 @@
         "conflict2.translation": "Translation: \"You said blue, they said green.<br><strong>Which is it?</strong>\"",
         "conflict2.resolution": "Pick one (or combine them), delete the markers, and commit.",
 
+        "conflict_ex.title": "Example: conflict in team.md",
+        "conflict_ex.scenario": "You wrote \"hiking\", but someone else changed the same line to \"surfing\". After <code>git pull</code>:",
+        "conflict_ex.fix_label": "You decide to combine both:",
+        "conflict_ex.step1": "Edit the file: remove the <code>&lt;&lt;&lt;</code> <code>===</code> <code>&gt;&gt;&gt;</code> markers",
+        "conflict_ex.step2": "Keep the version you want (or combine them)",
+        "conflict_ex.step3": "<code>git add .</code> then <code>git commit -m \"Resolve conflict\"</code>",
+
         "part5.label": "Part 5",
         "part5.title": "Your Daily Workflow",
         "part5.subtitle": "The \"Google Docs\" routine, translated",
@@ -1084,6 +1117,13 @@
         "conflict2.theirs": "El mejor color es el verde",
         "conflict2.translation": "Traducción: \"Vos dijiste azul, ellos dijeron verde.<br><strong>Cuál es?</strong>\"",
         "conflict2.resolution": "Elegí uno (o combinalos), borrá los marcadores, y hacé commit.",
+
+        "conflict_ex.title": "Ejemplo: conflicto en team.md",
+        "conflict_ex.scenario": "Vos pusiste \"hiking\", pero alguien cambió la misma línea a \"surfing\". Después de <code>git pull</code>:",
+        "conflict_ex.fix_label": "Decidís combinar ambos:",
+        "conflict_ex.step1": "Editá el archivo: borrá los marcadores <code>&lt;&lt;&lt;</code> <code>===</code> <code>&gt;&gt;&gt;</code>",
+        "conflict_ex.step2": "Dejá la versión que querés (o combinalas)",
+        "conflict_ex.step3": "<code>git add .</code> después <code>git commit -m \"Resolver conflicto\"</code>",
 
         "part5.label": "Parte 5",
         "part5.title": "Tu flujo de trabajo diario",
