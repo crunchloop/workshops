@@ -461,6 +461,23 @@
         <div class="success-box fragment" data-i18n="pushfail.checkpoint"></div>
       </section>
 
+      <!-- WHAT REBASE DOES -->
+      <section>
+        <h2 data-i18n="rebase.title"></h2>
+        <p style="font-size: 0.8em; margin-bottom: 0.5em;" data-i18n="rebase.desc"></p>
+        <div style="font-family: monospace; font-size: 0.65em; text-align: left; max-width: 80%; margin: 0 auto; line-height: 1.8;">
+          <p data-i18n="rebase.before_label" style="font-weight: 700; margin: 0.3em 0 0.1em; font-family: inherit;"></p>
+          <div style="background: #f6f8fa; border-radius: 6px; padding: 0.5em 1em; border: 1px solid #e1e4e8;">
+            <span data-i18n="rebase.before"></span>
+          </div>
+          <p class="fragment" data-i18n="rebase.after_label" style="font-weight: 700; margin: 0.5em 0 0.1em; font-family: inherit;"></p>
+          <div class="fragment" style="background: #f6f8fa; border-radius: 6px; padding: 0.5em 1em; border: 1px solid #e1e4e8;">
+            <span data-i18n="rebase.after"></span>
+          </div>
+        </div>
+        <div class="analogy-box fragment" style="margin-top: 0.6em;" data-i18n="rebase.analogy"></div>
+      </section>
+
       <!-- PART 3 HEADER -->
       <section data-background-color="#f6f8fa">
         <h3 style="color: #586069;" data-i18n="part3.label"></h3>
@@ -788,6 +805,14 @@
         "pushfail.code": "# Get their changes first\ngit pull\n\n# Now share yours\ngit push",
         "pushfail.checkpoint": "<strong>Checkpoint:</strong> Everyone should see all names in the repo on GitHub.",
 
+        "rebase.title": "What does rebase do?",
+        "rebase.desc": "When someone pushed before you, your history diverges. <code>git pull --rebase</code> replays your commits on top of theirs:",
+        "rebase.before_label": "Before (histories diverged):",
+        "rebase.before": "A &mdash; B &mdash; <span style='color:#cb2431'>C (their commit)</span><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;\\_ <span style='color:#0366d6'>D (your commit)</span>",
+        "rebase.after_label": "After rebase (clean line):",
+        "rebase.after": "A &mdash; B &mdash; <span style='color:#cb2431'>C (their commit)</span> &mdash; <span style='color:#0366d6'>D (your commit)</span>",
+        "rebase.analogy": "Like waiting in line: instead of both trying to go at once, you let them go first, then you go. The result is a <strong>clean, single line of history</strong>.",
+
         "part3.label": "Part 3",
         "part3.title": "Suggesting Mode",
         "part3.subtitle": "Branches & Pull Requests",
@@ -993,6 +1018,14 @@
         "pushfail.desc": "Alguien más hizo push primero. Igual que cuando Google Docs dice<br>\"esta sección fue editada por otra persona.\"",
         "pushfail.code": "# Primero obtené sus cambios\ngit pull\n\n# Ahora compartí los tuyos\ngit push",
         "pushfail.checkpoint": "<strong>Checkpoint:</strong> Todos deberían ver todos los nombres en el repo en GitHub.",
+
+        "rebase.title": "Qué hace el rebase?",
+        "rebase.desc": "Cuando alguien pusheó antes que vos, los historiales se separan. <code>git pull --rebase</code> repite tus commits encima de los de ellos:",
+        "rebase.before_label": "Antes (historiales separados):",
+        "rebase.before": "A &mdash; B &mdash; <span style='color:#cb2431'>C (su commit)</span><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;\\_ <span style='color:#0366d6'>D (tu commit)</span>",
+        "rebase.after_label": "Después del rebase (línea limpia):",
+        "rebase.after": "A &mdash; B &mdash; <span style='color:#cb2431'>C (su commit)</span> &mdash; <span style='color:#0366d6'>D (tu commit)</span>",
+        "rebase.analogy": "Como hacer fila: en vez de pasar los dos a la vez, los dejás pasar primero y después pasás vos. El resultado es un <strong>historial limpio, en una sola línea</strong>.",
 
         "part3.label": "Parte 3",
         "part3.title": "Modo Sugerencia",
