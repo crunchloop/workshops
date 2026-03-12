@@ -227,13 +227,13 @@
     .reveal .step-list {
       text-align: left;
       max-width: 85%;
-      margin: 0.5em auto;
-      font-size: 0.8em;
+      margin: 0.2em auto;
+      font-size: 0.65em;
     }
 
     .reveal .step-list li {
-      margin-bottom: 0.6em;
-      line-height: 1.4;
+      margin-bottom: 0.25em;
+      line-height: 1.3;
     }
 
     .reveal .step-list code {
@@ -242,32 +242,33 @@
 
     .github-slide {
       text-align: center;
+      font-size: 0.85em;
     }
 
     .github-slide .screenshot-placeholder {
       background: #f6f8fa;
       border: 2px dashed #d1d5da;
       border-radius: 12px;
-      padding: 2.5em 2em;
-      margin: 0.8em auto;
-      max-width: 70%;
+      padding: 0.8em 1.5em;
+      margin: 0.3em auto;
+      max-width: 65%;
       color: #586069;
-      font-size: 0.85em;
+      font-size: 0.8em;
     }
 
     .github-slide .screenshot-placeholder p {
-      margin: 0.3em 0;
+      margin: 0.15em 0;
     }
 
     .github-slide a.github-link {
       display: inline-block;
-      margin-top: 0.6em;
-      padding: 0.5em 1.5em;
+      margin-top: 0.3em;
+      padding: 0.35em 1.2em;
       background: #2ea44f;
       color: #fff;
       text-decoration: none;
       border-radius: 6px;
-      font-size: 0.85em;
+      font-size: 0.8em;
       font-weight: 600;
     }
 
@@ -449,7 +450,6 @@
           <li data-i18n="ex1.step4"></li>
           <li data-i18n="ex1.step5"></li>
         </ol>
-        <div class="warning-box" style="margin-top: 0.6em;" data-i18n="ex1.hint"></div>
       </section>
 
       <!-- WHEN PUSH FAILS -->
@@ -521,6 +521,7 @@
           <li data-i18n="ex2.step2"></li>
           <li data-i18n="ex2.step3"></li>
           <li data-i18n="ex2.step4"></li>
+          <li data-i18n="ex2.step5"></li>
         </ol>
       </section>
 
@@ -529,7 +530,7 @@
         <h2 data-i18n="gh.pr_create.title"></h2>
         <div class="screenshot-placeholder">
           <p data-i18n="gh.pr_create.instruction"></p>
-          <p style="font-size: 2em; margin: 0.3em 0;">Pull Request</p>
+          <p style="font-size: 1.2em; margin: 0.1em 0;">Pull Request</p>
           <p data-i18n="gh.pr_create.detail"></p>
         </div>
         <a class="github-link" href="https://github.com/crunchloop/git-workshop-for-docxers/pulls" target="_blank" rel="noopener" data-i18n="gh.open_github"></a>
@@ -540,7 +541,7 @@
         <h2 data-i18n="gh.pr_review.title"></h2>
         <div class="screenshot-placeholder">
           <p data-i18n="gh.pr_review.instruction"></p>
-          <p style="font-size: 2em; margin: 0.3em 0;">Code Review</p>
+          <p style="font-size: 1.2em; margin: 0.1em 0;">Code Review</p>
           <p data-i18n="gh.pr_review.detail"></p>
         </div>
         <a class="github-link" href="https://github.com/crunchloop/git-workshop-for-docxers/pulls" target="_blank" rel="noopener" data-i18n="gh.open_github"></a>
@@ -551,7 +552,7 @@
         <h2 data-i18n="gh.pr_merge.title"></h2>
         <div class="screenshot-placeholder">
           <p data-i18n="gh.pr_merge.instruction"></p>
-          <p style="font-size: 2em; margin: 0.3em 0;">Merge</p>
+          <p style="font-size: 1.2em; margin: 0.1em 0;">Merge</p>
           <p data-i18n="gh.pr_merge.detail"></p>
         </div>
         <a class="github-link" href="https://github.com/crunchloop/git-workshop-for-docxers/pulls" target="_blank" rel="noopener" data-i18n="gh.open_github"></a>
@@ -776,10 +777,9 @@
         "ex1.title": "Exercise: Join the team doc",
         "ex1.step1": "In the terminal, run <code>git status</code> to see the current state of the repo",
         "ex1.step2": "In the file explorer (left panel), open <code>team.md</code>",
-        "ex1.step3": "Add a new row with your name and a fun fact, then <strong>save the file</strong> (<code>Ctrl+S</code>)",
-        "ex1.step4": "In the terminal, stage and commit:<br><code>git add .</code><br><code>git commit -m \"Add [your name] to the team\"</code>",
-        "ex1.step5": "Push your changes: <code>git push</code>",
-        "ex1.hint": "If <code>git push</code> fails, someone pushed before you! Run <code>git pull --rebase</code> first, then <code>git push</code> again.",
+        "ex1.step3": "Add a new row with your name and a fun fact, then <strong>save</strong> (<code>Ctrl+S</code>)",
+        "ex1.step4": "In the terminal: <code>git add .</code> then <code>git commit -m \"Add [your name]\"</code>",
+        "ex1.step5": "Share with everyone: <code>git push</code>",
 
         "pushfail.title": "When <code>git push</code> fails",
         "pushfail.desc": "Someone else pushed first. Same as Google Docs saying<br>\"this section was edited by someone else.\"",
@@ -813,10 +813,11 @@
         "whynot.reason3": "Your branches = <strong>drafts and suggestions</strong>",
 
         "ex2.title": "Exercise: Suggest a change",
-        "ex2.step1": "In the terminal, create a new branch:<br><code>git checkout -b add-favorite-tool</code>",
+        "ex2.step1": "Create a new branch: <code>git checkout -b add-favorite-tool</code>",
         "ex2.step2": "Open <code>favorite-tools.md</code> in the editor, add your favorite tool, and <strong>save</strong>",
-        "ex2.step3": "Stage, commit, and push:<br><code>git add .</code><br><code>git commit -m \"Add [tool] as my favorite\"</code><br><code>git push -u origin add-favorite-tool</code>",
-        "ex2.step4": "Now go to GitHub to create a Pull Request (next slide)",
+        "ex2.step3": "<code>git add .</code> then <code>git commit -m \"Add [tool] as my favorite\"</code>",
+        "ex2.step4": "<code>git push -u origin add-favorite-tool</code>",
+        "ex2.step5": "Now go to GitHub to create a Pull Request (next slide)",
 
         "gh.pr_create.title": "Create a Pull Request",
         "gh.pr_create.instruction": "On GitHub, click \"Compare & pull request\" for your branch",
@@ -981,10 +982,9 @@
         "ex1.title": "Ejercicio: Unite al doc del equipo",
         "ex1.step1": "En la terminal, ejecutá <code>git status</code> para ver el estado actual del repo",
         "ex1.step2": "En el explorador de archivos (panel izquierdo), abrí <code>team.md</code>",
-        "ex1.step3": "Agregá una fila nueva con tu nombre y un dato curioso, después <strong>guardá el archivo</strong> (<code>Ctrl+S</code>)",
-        "ex1.step4": "En la terminal, prepará y guardá un checkpoint:<br><code>git add .</code><br><code>git commit -m \"Agrego [tu nombre] al equipo\"</code>",
-        "ex1.step5": "Compartí tus cambios: <code>git push</code>",
-        "ex1.hint": "Si <code>git push</code> falla, alguien pusheó antes! Ejecutá <code>git pull --rebase</code> primero, después <code>git push</code> de nuevo.",
+        "ex1.step3": "Agregá una fila nueva con tu nombre y un dato curioso, después <strong>guardá</strong> (<code>Ctrl+S</code>)",
+        "ex1.step4": "En la terminal: <code>git add .</code> después <code>git commit -m \"Agrego [tu nombre]\"</code>",
+        "ex1.step5": "Compartí con todos: <code>git push</code>",
 
         "pushfail.title": "Cuando <code>git push</code> falla",
         "pushfail.desc": "Alguien más hizo push primero. Igual que cuando Google Docs dice<br>\"esta sección fue editada por otra persona.\"",
@@ -1018,10 +1018,11 @@
         "whynot.reason3": "Tus branches = <strong>borradores y sugerencias</strong>",
 
         "ex2.title": "Ejercicio: Sugerir un cambio",
-        "ex2.step1": "En la terminal, creá un nuevo branch:<br><code>git checkout -b agregar-herramienta-favorita</code>",
+        "ex2.step1": "Creá un nuevo branch: <code>git checkout -b agregar-herramienta-favorita</code>",
         "ex2.step2": "Abrí <code>favorite-tools.md</code> en el editor, agregá tu herramienta favorita, y <strong>guardá</strong>",
-        "ex2.step3": "Prepará, commiteá, y pusheá:<br><code>git add .</code><br><code>git commit -m \"Agrego [herramienta] como mi favorita\"</code><br><code>git push -u origin agregar-herramienta-favorita</code>",
-        "ex2.step4": "Ahora andá a GitHub para crear un Pull Request (siguiente slide)",
+        "ex2.step3": "<code>git add .</code> después <code>git commit -m \"Agrego [herramienta] como mi favorita\"</code>",
+        "ex2.step4": "<code>git push -u origin agregar-herramienta-favorita</code>",
+        "ex2.step5": "Ahora andá a GitHub para crear un Pull Request (siguiente slide)",
 
         "gh.pr_create.title": "Crear un Pull Request",
         "gh.pr_create.instruction": "En GitHub, hacé clic en \"Compare & pull request\" para tu branch",
