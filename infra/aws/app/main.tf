@@ -2,9 +2,10 @@ terraform {
   required_version = ">= 1.5.7"
 
   backend "s3" {
-    bucket = "terraform-crunchloop-aws"
-    key    = "apps-workshops.tfstate"
-    region = "us-east-1"
+    bucket  = "terraform-crunchloop-aws"
+    key     = "apps-workshops.tfstate"
+    region  = "us-east-1"
+    profile = "crunchloop"
   }
 
   required_providers {
@@ -22,7 +23,7 @@ locals {
 
 provider "aws" {
   region  = local.aws_region
-  profile = "development"
+  profile = "crunchloop"
 
   allowed_account_ids = [
     "176434290504"
