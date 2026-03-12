@@ -30,3 +30,6 @@ serviceAccount:
   create: true
   name: workshops
   annotations: {}
+
+externalSecret:
+  enabled: false
