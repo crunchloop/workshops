@@ -23,7 +23,7 @@ locals {
 
 provider "aws" {
   region  = local.aws_region
-  profile = "crunchloop"
+  profile = "development"
 
   allowed_account_ids = [
     "176434290504"
