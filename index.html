@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Git &amp; GitHub Workshop</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css">
+  <style>
+    :root {
+      --r-heading-color: #24292e;
+      --r-main-color: #333;
+      --r-link-color: #0366d6;
+      --r-background-color: #fff;
+    }
+
+    .reveal {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+
+    .reveal h1, .reveal h2, .reveal h3 {
+      text-transform: none;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .reveal h1 { font-size: 2.2em; }
+    .reveal h2 { font-size: 1.6em; }
+    .reveal h3 { font-size: 1.2em; color: #586069; }
+
+    .reveal table {
+      font-size: 0.7em;
+      margin: 0.5em auto;
+      border-collapse: collapse;
+    }
+
+    .reveal table th {
+      background: #f6f8fa;
+      font-weight: 600;
+      border-bottom: 2px solid #e1e4e8;
+      padding: 0.6em 1em;
+      text-align: left;
+    }
+
+    .reveal table td {
+      border-bottom: 1px solid #e1e4e8;
+      padding: 0.5em 1em;
+      text-align: left;
+    }
+
+    .reveal pre {
+      font-size: 0.75em;
+      box-shadow: none;
+      background: #f6f8fa;
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+      padding: 0.8em;
+      width: 90%;
+      margin: 0.5em auto;
+    }
+
+    .reveal code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      background: #f6f8fa;
+      padding: 0.15em 0.4em;
+      border-radius: 3px;
+      font-size: 0.9em;
+    }
+
+    .reveal pre code {
+      background: none;
+      padding: 0;
+    }
+
+    .reveal .subtitle {
+      color: #586069;
+      font-size: 0.9em;
+      margin-top: -0.3em;
+    }
+
+    .reveal .analogy-box {
+      background: #f1f8ff;
+      border-left: 4px solid #0366d6;
+      padding: 0.6em 1em;
+      margin: 0.5em auto;
+      text-align: left;
+      max-width: 80%;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.8em;
+    }
+
+    .reveal .warning-box {
+      background: #fffbdd;
+      border-left: 4px solid #f9c513;
+      padding: 0.6em 1em;
+      margin: 0.5em auto;
+      text-align: left;
+      max-width: 80%;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.8em;
+    }
+
+    .reveal .success-box {
+      background: #dcffe4;
+      border-left: 4px solid #28a745;
+      padding: 0.6em 1em;
+      margin: 0.5em auto;
+      text-align: left;
+      max-width: 80%;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.8em;
+    }
+
+    .reveal .side-by-side {
+      display: flex;
+      gap: 1.5em;
+      align-items: flex-start;
+      justify-content: center;
+      font-size: 0.8em;
+    }
+
+    .reveal .side-by-side > div {
+      flex: 1;
+      max-width: 45%;
+    }
+
+    .reveal .side-by-side h3 {
+      margin-top: 0;
+      font-size: 1em;
+    }
+
+    .reveal ul {
+      font-size: 0.85em;
+    }
+
+    .reveal li {
+      margin-bottom: 0.3em;
+    }
+
+    .reveal .slide-number {
+      font-size: 12px;
+      color: #959da5;
+      background: none !important;
+      right: 16px;
+      bottom: 10px;
+    }
+
+    .reveal .cheat-sheet {
+      text-align: left;
+      font-size: 0.65em;
+      columns: 2;
+      column-gap: 2em;
+      max-width: 90%;
+      margin: 0 auto;
+    }
+
+    .reveal .cheat-sheet h4 {
+      margin: 0.5em 0 0.2em;
+      color: #0366d6;
+      font-size: 1.1em;
+      break-after: avoid;
+    }
+
+    .reveal .cheat-sheet code {
+      font-size: 0.95em;
+    }
+
+    .reveal .conflict-block {
+      text-align: left;
+      background: #ffeef0;
+      border: 1px solid #fdaeb7;
+      border-radius: 6px;
+      padding: 0.8em 1em;
+      max-width: 70%;
+      margin: 0.5em auto;
+      font-family: monospace;
+      font-size: 0.7em;
+      line-height: 1.6;
+    }
+
+    .reveal .conflict-block .ours {
+      background: #e6ffed;
+      display: block;
+      padding: 0.1em 0.3em;
+    }
+
+    .reveal .conflict-block .theirs {
+      background: #ffeef0;
+      display: block;
+      padding: 0.1em 0.3em;
+    }
+
+    .reveal .conflict-block .marker {
+      color: #cb2431;
+      font-weight: bold;
+      display: block;
+    }
+
+    section.title-slide h1 {
+      font-size: 2.5em;
+      margin-bottom: 0;
+    }
+
+    .reveal .takeaway-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5em;
+      max-width: 90%;
+      margin: 0 auto;
+      font-size: 0.65em;
+      text-align: left;
+    }
+
+    .reveal .takeaway-card {
+      background: #f6f8fa;
+      border-radius: 8px;
+      padding: 0.5em 0.8em;
+      border: 1px solid #e1e4e8;
+    }
+
+    .reveal .takeaway-card strong {
+      color: #0366d6;
+      display: block;
+      margin-bottom: 0.2em;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- TITLE -->
+      <section class="title-slide" data-background-color="#24292e">
+        <h1 style="color: #fff;">Git &amp; GitHub</h1>
+        <h3 style="color: #8b949e;" data-i18n="title.subtitle"></h3>
+        <p style="color: #8b949e; font-size: 0.6em; margin-top: 2em;" data-i18n="title.desc"></p>
+      </section>
+
+      <!-- OPENING QUESTION -->
+      <section>
+        <h2 data-i18n="opening.title"></h2>
+        <p style="font-size: 1.1em; margin-top: 1em;" data-i18n="opening.question"></p>
+        <p class="fragment" style="font-size: 0.9em; color: #586069; margin-top: 1em;" data-i18n="opening.details"></p>
+        <p class="fragment" style="font-size: 1.2em; margin-top: 1em; color: #0366d6;" data-i18n="opening.punchline"></p>
+      </section>
+
+      <!-- WHY GIT EXISTS -->
+      <section>
+        <h2 data-i18n="why.title"></h2>
+        <ul style="margin-top: 1em;">
+          <li class="fragment" data-i18n="why.point1"></li>
+          <li class="fragment" data-i18n="why.point2"></li>
+          <li class="fragment" data-i18n="why.point3"></li>
+        </ul>
+        <div class="analogy-box fragment" style="margin-top: 1em;" data-i18n="why.analogy"></div>
+      </section>
+
+      <!-- WHY BETTER THAN GDOCS -->
+      <section>
+        <h2 data-i18n="whybetter.title"></h2>
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Google Docs</th>
+              <th>Git</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td data-i18n="whybetter.row1"></td><td data-i18n="whybetter.r1gdocs"></td><td data-i18n="whybetter.r1git"></td></tr>
+            <tr><td data-i18n="whybetter.row2"></td><td data-i18n="whybetter.r2gdocs"></td><td data-i18n="whybetter.r2git"></td></tr>
+            <tr><td data-i18n="whybetter.row3"></td><td data-i18n="whybetter.r3gdocs"></td><td data-i18n="whybetter.r3git"></td></tr>
+            <tr><td data-i18n="whybetter.row4"></td><td data-i18n="whybetter.r4gdocs"></td><td data-i18n="whybetter.r4git"></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- THE KEY DIFFERENCE -->
+      <section>
+        <h2 data-i18n="keydiff.title"></h2>
+        <div class="side-by-side" style="margin-top: 1em;">
+          <div>
+            <h3>Google Docs</h3>
+            <p data-i18n="keydiff.gdocs"></p>
+          </div>
+          <div>
+            <h3>Git</h3>
+            <p data-i18n="keydiff.git"></p>
+          </div>
+        </div>
+        <div class="analogy-box fragment" style="margin-top: 1em;" data-i18n="keydiff.analogy"></div>
+      </section>
+
+      <!-- PART 1 HEADER -->
+      <section data-background-color="#f6f8fa">
+        <h3 style="color: #586069;" data-i18n="part1.label"></h3>
+        <h2 data-i18n="part1.title"></h2>
+        <p class="subtitle" data-i18n="part1.subtitle"></p>
+      </section>
+
+      <!-- VERSION HISTORY -->
+      <section>
+        <h2 data-i18n="history.title"></h2>
+        <table>
+          <thead>
+            <tr>
+              <th data-i18n="history.col1"></th>
+              <th data-i18n="history.col2"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td data-i18n="history.r1c1"></td><td><code>git log</code></td></tr>
+            <tr><td data-i18n="history.r2c1"></td><td data-i18n="history.r2c2"></td></tr>
+            <tr><td data-i18n="history.r3c1"></td><td><code>git revert</code></td></tr>
+            <tr><td data-i18n="history.r4c1"></td><td><code>git blame</code> <em data-i18n="history.r4c2note"></em></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- WHERE YOUR WORK LIVES -->
+      <section>
+        <h2 data-i18n="where.title"></h2>
+        <table>
+          <thead>
+            <tr>
+              <th data-i18n="where.col1"></th>
+              <th data-i18n="where.col2"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td data-i18n="where.r1c1"></td><td data-i18n="where.r1c2"></td></tr>
+            <tr><td data-i18n="where.r2c1"></td><td data-i18n="where.r2c2"></td></tr>
+            <tr><td data-i18n="where.r3c1"></td><td data-i18n="where.r3c2"></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ACTIONS -->
+      <section>
+        <h2 data-i18n="actions.title"></h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Google Docs</th>
+              <th>Git</th>
+              <th data-i18n="actions.col3"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td data-i18n="actions.r1c1"></td><td><strong>Clone</strong></td><td><code>git clone &lt;url&gt;</code></td></tr>
+            <tr><td data-i18n="actions.r2c1"></td><td><strong>Pull</strong></td><td><code>git pull</code></td></tr>
+            <tr><td data-i18n="actions.r3c1"></td><td data-i18n="actions.r3c2"></td><td><em data-i18n="actions.r3c3"></em></td></tr>
+            <tr><td data-i18n="actions.r4c1"></td><td><strong>Commit</strong></td><td><code>git commit -m "..."</code></td></tr>
+            <tr><td data-i18n="actions.r5c1"></td><td><strong>Push</strong></td><td><code>git push</code></td></tr>
+            <tr><td data-i18n="actions.r6c1"></td><td><strong>Fork</strong></td><td><em data-i18n="actions.r6c3"></em></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- TWO STEP SAVE -->
+      <section>
+        <h2 data-i18n="twostep.title"></h2>
+        <p class="subtitle" data-i18n="twostep.subtitle"></p>
+        <div style="margin-top: 1em; font-size: 0.85em;">
+          <p class="fragment" data-i18n="twostep.step1"></p>
+          <p class="fragment" data-i18n="twostep.step2"></p>
+          <p class="fragment" data-i18n="twostep.step3"></p>
+        </div>
+        <div class="analogy-box fragment" style="margin-top: 0.8em;" data-i18n="twostep.analogy"></div>
+      </section>
+
+      <!-- PART 2 HEADER -->
+      <section data-background-color="#f6f8fa">
+        <h3 style="color: #586069;" data-i18n="part2.label"></h3>
+        <h2 data-i18n="part2.title"></h2>
+        <p class="subtitle" data-i18n="part2.subtitle"></p>
+      </section>
+
+      <!-- EXERCISE 1 -->
+      <section>
+        <h2 data-i18n="ex1.title"></h2>
+        <pre><code data-i18n-text="ex1.code"></code></pre>
+      </section>
+
+      <!-- WHEN PUSH FAILS -->
+      <section>
+        <h2 data-i18n="pushfail.title"></h2>
+        <p style="font-size: 0.85em;" data-i18n="pushfail.desc"></p>
+        <pre class="fragment"><code data-i18n-text="pushfail.code"></code></pre>
+        <div class="success-box fragment" data-i18n="pushfail.checkpoint"></div>
+      </section>
+
+      <!-- PART 3 HEADER -->
+      <section data-background-color="#f6f8fa">
+        <h3 style="color: #586069;" data-i18n="part3.label"></h3>
+        <h2 data-i18n="part3.title"></h2>
+        <p class="subtitle" data-i18n="part3.subtitle"></p>
+      </section>
+
+      <!-- THE PROBLEM -->
+      <section>
+        <h2 data-i18n="collab.title"></h2>
+        <div class="side-by-side" style="margin-top: 1em;">
+          <div>
+            <h3>Google Docs</h3>
+            <p data-i18n="collab.gdocs"></p>
+          </div>
+          <div>
+            <h3>Git</h3>
+            <p data-i18n="collab.git"></p>
+          </div>
+        </div>
+        <p class="fragment" style="font-size: 1.2em; margin-top: 1em; color: #0366d6;" data-i18n="collab.answer"></p>
+      </section>
+
+      <!-- BRANCHES = SUGGESTING MODE -->
+      <section>
+        <h2 data-i18n="branches.title"></h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Google Docs</th>
+              <th>Git / GitHub</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td data-i18n="branches.r1c1"></td><td data-i18n="branches.r1c2"></td></tr>
+            <tr><td data-i18n="branches.r2c1"></td><td data-i18n="branches.r2c2"></td></tr>
+            <tr><td data-i18n="branches.r3c1"></td><td data-i18n="branches.r3c2"></td></tr>
+            <tr><td data-i18n="branches.r4c1"></td><td data-i18n="branches.r4c2"></td></tr>
+            <tr><td data-i18n="branches.r5c1"></td><td data-i18n="branches.r5c2"></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- WHY NOT EDIT MAIN -->
+      <section>
+        <h2 data-i18n="whynot.title"></h2>
+        <ul style="margin-top: 1em;">
+          <li class="fragment" data-i18n="whynot.reason1"></li>
+          <li class="fragment" data-i18n="whynot.reason2"></li>
+          <li class="fragment" data-i18n="whynot.reason3"></li>
+        </ul>
+      </section>
+
+      <!-- EXERCISE 2 -->
+      <section>
+        <h2 data-i18n="ex2.title"></h2>
+        <pre><code data-i18n-text="ex2.code"></code></pre>
+      </section>
+
+      <!-- PART 4 HEADER -->
+      <section data-background-color="#f6f8fa">
+        <h3 style="color: #586069;" data-i18n="part4.label"></h3>
+        <h2 data-i18n="part4.title"></h2>
+        <p class="subtitle" data-i18n="part4.subtitle"></p>
+      </section>
+
+      <!-- CONFLICT INTRO -->
+      <section>
+        <h2 data-i18n="conflict.title"></h2>
+        <div class="side-by-side" style="margin-top: 1em;">
+          <div>
+            <h3>Google Docs</h3>
+            <p data-i18n="conflict.gdocs"></p>
+          </div>
+          <div>
+            <h3>Git</h3>
+            <p data-i18n="conflict.git"></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHAT IT LOOKS LIKE -->
+      <section>
+        <h2 data-i18n="conflict2.title"></h2>
+        <div class="conflict-block">
+          <span class="marker">&lt;&lt;&lt;&lt;&lt;&lt;&lt; yours</span>
+          <span class="ours" data-i18n="conflict2.ours"></span>
+          <span class="marker">=======</span>
+          <span class="theirs" data-i18n="conflict2.theirs"></span>
+          <span class="marker">&gt;&gt;&gt;&gt;&gt;&gt;&gt; theirs</span>
+        </div>
+        <p class="fragment" style="font-size: 0.85em; margin-top: 1em;" data-i18n="conflict2.translation"></p>
+        <p class="fragment" style="font-size: 0.85em;" data-i18n="conflict2.resolution"></p>
+      </section>
+
+      <!-- PART 5 HEADER -->
+      <section data-background-color="#f6f8fa">
+        <h3 style="color: #586069;" data-i18n="part5.label"></h3>
+        <h2 data-i18n="part5.title"></h2>
+        <p class="subtitle" data-i18n="part5.subtitle"></p>
+      </section>
+
+      <!-- DAILY WORKFLOW -->
+      <section>
+        <h2 data-i18n="daily.title"></h2>
+        <table>
+          <thead>
+            <tr>
+              <th data-i18n="daily.col1"></th>
+              <th data-i18n="daily.col2"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td data-i18n="daily.r1c1"></td><td><code>git pull</code></td></tr>
+            <tr><td data-i18n="daily.r2c1"></td><td><code>git checkout -b my-feature</code></td></tr>
+            <tr><td><em data-i18n="daily.r3c1"></em></td><td><em data-i18n="daily.r3c2"></em></td></tr>
+            <tr><td data-i18n="daily.r4c1"></td><td><code>git add . &amp;&amp; git commit -m "..."</code></td></tr>
+            <tr><td data-i18n="daily.r5c1"></td><td><code>git push</code> + PR</td></tr>
+            <tr><td data-i18n="daily.r6c1"></td><td data-i18n="daily.r6c2"></td></tr>
+            <tr><td data-i18n="daily.r7c1"></td><td><code>git checkout main &amp;&amp; git pull</code></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- CHEAT SHEET -->
+      <section>
+        <h2>Cheat Sheet</h2>
+        <div class="cheat-sheet">
+          <div>
+            <h4 data-i18n="cheat.started"></h4>
+            <p><code>git clone &lt;url&gt;</code> &mdash; <span data-i18n="cheat.clone"></span><br>
+            <code>git pull</code> &mdash; <span data-i18n="cheat.pull"></span></p>
+
+            <h4 data-i18n="cheat.saving"></h4>
+            <p><code>git add .</code> &mdash; <span data-i18n="cheat.add"></span><br>
+            <code>git commit -m "msg"</code> &mdash; <span data-i18n="cheat.commit"></span><br>
+            <code>git push</code> &mdash; <span data-i18n="cheat.push"></span></p>
+          </div>
+          <div>
+            <h4 data-i18n="cheat.branches"></h4>
+            <p><code>git checkout -b name</code> &mdash; <span data-i18n="cheat.newbranch"></span><br>
+            <code>git checkout main</code> &mdash; <span data-i18n="cheat.backmain"></span><br>
+            <code>git push -u origin name</code> &mdash; <span data-i18n="cheat.sharebranch"></span></p>
+
+            <h4 data-i18n="cheat.status"></h4>
+            <p><code>git status</code> &mdash; <span data-i18n="cheat.statusdesc"></span><br>
+            <code>git log --oneline</code> &mdash; <span data-i18n="cheat.logdesc"></span><br>
+            <code>git diff</code> &mdash; <span data-i18n="cheat.diffdesc"></span></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAKEAWAYS -->
+      <section>
+        <h2 data-i18n="takeaways.title"></h2>
+        <div class="takeaway-grid">
+          <div class="takeaway-card">
+            <strong data-i18n="takeaways.t1title"></strong>
+            <span data-i18n="takeaways.t1desc"></span>
+          </div>
+          <div class="takeaway-card">
+            <strong data-i18n="takeaways.t2title"></strong>
+            <span data-i18n="takeaways.t2desc"></span>
+          </div>
+          <div class="takeaway-card">
+            <strong data-i18n="takeaways.t3title"></strong>
+            <span data-i18n="takeaways.t3desc"></span>
+          </div>
+          <div class="takeaway-card">
+            <strong data-i18n="takeaways.t4title"></strong>
+            <span data-i18n="takeaways.t4desc"></span>
+          </div>
+        </div>
+        <div class="analogy-box fragment" style="margin-top: 1em;" data-i18n="takeaways.conflicts"></div>
+      </section>
+
+      <!-- END -->
+      <section data-background-color="#24292e">
+        <h1 style="color: #fff;" data-i18n="end.title"></h1>
+        <p style="color: #8b949e; font-size: 0.8em; margin-top: 2em;" data-i18n="end.nav"></p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script>
+    const i18n = {
+      en: {
+        "title.subtitle": "You Already Know This",
+        "title.desc": "A workshop for teams who collaborate on Google Docs & Sheets",
+
+        "opening.title": "Quick question",
+        "opening.question": "Have you ever opened <strong>Version History</strong><br>in Google Docs?",
+        "opening.details": "To see who changed what?<br>To restore something someone deleted?",
+        "opening.punchline": "<strong>That's version control.</strong>",
+
+        "why.title": "But why Git?",
+        "why.point1": "In the 2000s, software teams needed to coordinate <strong>thousands of files</strong> changing simultaneously across <strong>hundreds of people</strong>",
+        "why.point2": "Linus Torvalds (creator of Linux) built Git in 2005 because no existing tool could handle that scale",
+        "why.point3": "Today it's the <strong>universal standard</strong> — not just for code, but for anything that changes over time and needs coordination",
+        "why.analogy": "Google Docs works great for <strong>one document, a few people</strong>. Git works for <strong>thousands of files, hundreds of people, years of history</strong>.",
+
+        "whybetter.title": "Google Docs vs Git at scale",
+        "whybetter.row1": "<strong>Files</strong>",
+        "whybetter.r1gdocs": "One doc at a time",
+        "whybetter.r1git": "Entire project (all files together)",
+        "whybetter.row2": "<strong>History</strong>",
+        "whybetter.r2gdocs": "Every keystroke (noisy)",
+        "whybetter.r2git": "Named checkpoints (meaningful)",
+        "whybetter.row3": "<strong>Review</strong>",
+        "whybetter.r3gdocs": "Comments on a paragraph",
+        "whybetter.r3git": "Structured review of all changes",
+        "whybetter.row4": "<strong>Parallel work</strong>",
+        "whybetter.r4gdocs": "Everyone edits the same doc",
+        "whybetter.r4git": "Each person works on their branch, merges when ready",
+
+        "keydiff.title": "The one key difference",
+        "keydiff.gdocs": "Saves every keystroke<br><strong>automatically</strong> and silently",
+        "keydiff.git": "<strong>You</strong> decide when to save<br>a meaningful checkpoint",
+        "keydiff.analogy": "Think of it like: instead of auto-save, you click <strong>\"Name this version\"</strong> every time you reach a milestone.",
+
+        "part1.label": "Part 1",
+        "part1.title": "The Translation Table",
+        "part1.subtitle": "Everything you know, mapped to Git",
+
+        "history.title": "Version History = Git Log",
+        "history.col1": "What you do in Google Docs",
+        "history.col2": "What it's called in Git",
+        "history.r1c1": "Open \"Version history\"",
+        "history.r2c1": "\"Name this version\"",
+        "history.r2c2": "A <strong>commit message</strong>",
+        "history.r3c1": "Restore a previous version",
+        "history.r4c1": "See who changed a line",
+        "history.r4c2note": "(unfortunate name)",
+
+        "where.title": "Where your work lives",
+        "where.col1": "Google world",
+        "where.col2": "Git world",
+        "where.r1c1": "The Google Doc \"in the cloud\"",
+        "where.r1c2": "The <strong>remote repository</strong> (on GitHub)",
+        "where.r2c1": "The doc open in your browser tab",
+        "where.r2c2": "Your <strong>local copy</strong> (on your computer)",
+        "where.r3c1": "A shared Drive folder with many docs",
+        "where.r3c2": "A <strong>repository</strong> (project with all its files)",
+
+        "actions.title": "The actions you take",
+        "actions.col3": "Command",
+        "actions.r1c1": "Open a shared doc (first time)",
+        "actions.r2c1": "Refresh to see others' changes",
+        "actions.r3c1": "Type in the doc",
+        "actions.r3c2": "Edit files",
+        "actions.r3c3": "(just edit normally)",
+        "actions.r4c1": "Ctrl+S... just kidding",
+        "actions.r5c1": "Edits appear for everyone",
+        "actions.r6c1": "\"Make a copy\"",
+        "actions.r6c3": "Fork button on GitHub",
+
+        "twostep.title": "The Two-Step Save",
+        "twostep.subtitle": "The biggest difference from Google Docs",
+        "twostep.step1": "<strong>Step 1: Stage</strong> &mdash; <code>git add</code><br>\"These are the changes I want to include\"",
+        "twostep.step2": "<strong>Step 2: Commit</strong> &mdash; <code>git commit -m \"message\"</code><br>\"Save this as a named checkpoint\"",
+        "twostep.step3": "<strong>Step 3: Push</strong> &mdash; <code>git push</code><br>\"Share it with the team\"",
+        "twostep.analogy": "Like editing a Google Doc in <strong>offline mode</strong>, then choosing which changes to sync when you go back online.",
+
+        "part2.label": "Part 2",
+        "part2.title": "Hands-On: Your First Repo",
+        "part2.subtitle": "Create a shared document, Git-style",
+
+        "ex1.title": "Exercise: Join the team doc",
+        "ex1.code": "# Step 1: Get the project\ngit clone <workshop-repo-url>\ncd workshop-repo\n\n# Step 2: Edit the file\n# (Add your name and one fun fact)\n\n# Step 3: Save a checkpoint\ngit add .\ngit commit -m \"Add [your name] to the team list\"\n\n# Step 4: Share with everyone\ngit push",
+
+        "pushfail.title": "When <code>git push</code> fails",
+        "pushfail.desc": "Someone else pushed first. Same as Google Docs saying<br>\"this section was edited by someone else.\"",
+        "pushfail.code": "# Get their changes first\ngit pull\n\n# Now share yours\ngit push",
+        "pushfail.checkpoint": "<strong>Checkpoint:</strong> Everyone should see all names in the repo on GitHub.",
+
+        "part3.label": "Part 3",
+        "part3.title": "Suggesting Mode",
+        "part3.subtitle": "Branches & Pull Requests",
+
+        "collab.title": "The collaboration problem",
+        "collab.gdocs": "5 people edit at once &mdash; it works because everyone sees changes <strong>in real time</strong>",
+        "collab.git": "You work on <strong>your own copy</strong>.<br>So how do you avoid chaos?",
+        "collab.answer": "<strong>Branches.</strong>",
+
+        "branches.title": "Branches = Suggesting Mode",
+        "branches.r1c1": "Switch to \"Suggesting\" mode",
+        "branches.r1c2": "Create a <strong>branch</strong>",
+        "branches.r2c1": "Make your suggested edits",
+        "branches.r2c2": "Make <strong>commits</strong> on your branch",
+        "branches.r3c1": "The owner reviews your suggestions",
+        "branches.r3c2": "Open a <strong>Pull Request</strong> (PR)",
+        "branches.r4c1": "They accept / reject / comment",
+        "branches.r4c2": "<strong>Code review</strong> on the PR",
+        "branches.r5c1": "Accept all suggestions",
+        "branches.r5c2": "<strong>Merge</strong> the PR",
+
+        "whynot.title": "Why not just edit the main doc?",
+        "whynot.reason1": "Same reason you'd use Suggesting mode: so the team can <strong>review</strong> before changes go live",
+        "whynot.reason2": "The <code>main</code> branch = the <strong>\"published\" version</strong> of your document",
+        "whynot.reason3": "Your branches = <strong>drafts and suggestions</strong>",
+
+        "ex2.title": "Exercise: Suggest a change",
+        "ex2.code": "# 1. Create your suggestion space\ngit checkout -b add-favorite-tool\n\n# 2. Make your edit\n#    (Add your favorite tool to the list)\n\n# 3. Save and share\ngit add .\ngit commit -m \"Add [tool] as my favorite\"\ngit push -u origin add-favorite-tool\n\n# 4. Open a Pull Request on GitHub\n# 5. Review someone else's PR\n# 6. Merge!",
+
+        "part4.label": "Part 4",
+        "part4.title": "When Two People Edit the Same Line",
+        "part4.subtitle": "Merge conflicts",
+
+        "conflict.title": "Merge conflicts",
+        "conflict.gdocs": "Two cursors in the same paragraph &mdash; it just works, real-time",
+        "conflict.git": "Two people change the same line on different branches &mdash; Git asks: <strong>\"which version do I keep?\"</strong>",
+
+        "conflict2.title": "It looks scary, but it's just a question",
+        "conflict2.ours": "The best color is blue",
+        "conflict2.theirs": "The best color is green",
+        "conflict2.translation": "Translation: \"You said blue, they said green.<br><strong>Which is it?</strong>\"",
+        "conflict2.resolution": "Pick one (or combine them), delete the markers, and commit.",
+
+        "part5.label": "Part 5",
+        "part5.title": "Your Daily Workflow",
+        "part5.subtitle": "The \"Google Docs\" routine, translated",
+
+        "daily.title": "Every day, translated",
+        "daily.col1": "What you're thinking",
+        "daily.col2": "What you type",
+        "daily.r1c1": "\"Let me get the latest version\"",
+        "daily.r2c1": "\"I'm going to work on X\"",
+        "daily.r3c1": "(do your work)",
+        "daily.r3c2": "(edit files normally)",
+        "daily.r4c1": "\"Save my progress\"",
+        "daily.r5c1": "\"Share for review\"",
+        "daily.r6c1": "\"My PR was approved!\"",
+        "daily.r6c2": "Merge on GitHub",
+        "daily.r7c1": "\"Back to the main doc\"",
+
+        "cheat.started": "Getting Started",
+        "cheat.clone": "Copy a project",
+        "cheat.pull": "Get latest changes",
+        "cheat.saving": "Saving Your Work",
+        "cheat.add": "Stage changes",
+        "cheat.commit": "Save checkpoint",
+        "cheat.push": "Share with team",
+        "cheat.branches": "Branches (Suggesting Mode)",
+        "cheat.newbranch": "New branch",
+        "cheat.backmain": "Back to main",
+        "cheat.sharebranch": "Share branch",
+        "cheat.status": "Checking Status",
+        "cheat.statusdesc": "What have I changed?",
+        "cheat.logdesc": "What checkpoints exist?",
+        "cheat.diffdesc": "What exactly did I change?",
+
+        "takeaways.title": "Key Takeaways",
+        "takeaways.t1title": "Git = version history you control",
+        "takeaways.t1desc": "Same concept as Google Docs, but you choose when to save checkpoints",
+        "takeaways.t2title": "GitHub = your shared Drive",
+        "takeaways.t2desc": "Where the team's official version lives",
+        "takeaways.t3title": "Branches = Suggesting mode",
+        "takeaways.t3desc": "Work on your idea without touching the main document",
+        "takeaways.t4title": "Pull Requests = the review step",
+        "takeaways.t4desc": "The team looks at your suggestions before accepting",
+        "takeaways.conflicts": "<strong>Merge conflicts aren't errors</strong> &mdash; they're Git asking you to make a decision, like two people editing the same cell in a spreadsheet.",
+
+        "end.title": "Questions?",
+        "end.nav": "Navigate: arrow keys | Overview: <code style=\"color:#8b949e; background:none;\">Esc</code>",
+      },
+
+      es: {
+        "title.subtitle": "Familiar aunque no lo crean",
+        "title.desc": "Un taller para equipos que colaboran en Google Docs y Sheets",
+
+        "opening.title": "Pregunta rápida",
+        "opening.question": "Alguna vez abrieron el <strong>Historial de versiones</strong><br>en Google Docs?",
+        "opening.details": "Para ver quién cambió qué?<br>Para restaurar algo que alguien borró?",
+        "opening.punchline": "<strong>Eso es control de versionado.</strong>",
+
+        "why.title": "Pero, por qué Git?",
+        "why.point1": "En los 2000, los equipos de software necesitaban coordinar <strong>miles de archivos</strong> cambiando simultáneamente entre <strong>cientos de personas</strong>",
+        "why.point2": "Linus Torvalds (creador de Linux) construyó Git en 2005 porque ninguna herramienta existente podía manejar esa escala",
+        "why.point3": "Hoy es el <strong>estándar universal</strong> — no solo para código, sino para cualquier cosa que cambie con el tiempo y necesite coordinación",
+        "why.analogy": "Google Docs funciona genial para <strong>un documento, pocas personas</strong>. Git funciona para <strong>miles de archivos, cientos de personas, años de historial</strong>.",
+
+        "whybetter.title": "Google Docs vs Git a escala",
+        "whybetter.row1": "<strong>Archivos</strong>",
+        "whybetter.r1gdocs": "Un doc a la vez",
+        "whybetter.r1git": "Proyecto entero (todos los archivos juntos)",
+        "whybetter.row2": "<strong>Historial</strong>",
+        "whybetter.r2gdocs": "Cada tecla (ruidoso)",
+        "whybetter.r2git": "Checkpoints con nombre (con significado)",
+        "whybetter.row3": "<strong>Revisión</strong>",
+        "whybetter.r3gdocs": "Comentarios en un párrafo",
+        "whybetter.r3git": "Revisión estructurada de todos los cambios",
+        "whybetter.row4": "<strong>Trabajo en paralelo</strong>",
+        "whybetter.r4gdocs": "Todos editan el mismo doc",
+        "whybetter.r4git": "Cada uno trabaja en su branch, mergea cuando está listo",
+
+        "keydiff.title": "La única diferencia clave",
+        "keydiff.gdocs": "Guarda cada tecla<br><strong>automáticamente</strong> y en silencio",
+        "keydiff.git": "<strong>Vos</strong> decidís cuándo guardar<br>un checkpoint con significado",
+        "keydiff.analogy": "Pensalo así: en vez de autoguardado, vos hacés clic en <strong>\"Ponerle nombre a esta versión\"</strong> cada vez que llegás a un hito.",
+
+        "part1.label": "Parte 1",
+        "part1.title": "La Tabla de Traducción",
+        "part1.subtitle": "Todo lo que ya saben, mapeado a Git",
+
+        "history.title": "Historial de versiones = Git Log",
+        "history.col1": "Lo que hacen en Google Docs",
+        "history.col2": "Cómo se llama en Git",
+        "history.r1c1": "Abrir \"Historial de versiones\"",
+        "history.r2c1": "\"Ponerle nombre a esta versión\"",
+        "history.r2c2": "Un <strong>mensaje de commit</strong>",
+        "history.r3c1": "Restaurar una versión anterior",
+        "history.r4c1": "Ver quien cambió una línea",
+        "history.r4c2note": "(nombre desafortunado)",
+
+        "where.title": "Dónde vive tu trabajo",
+        "where.col1": "Mundo Google",
+        "where.col2": "Mundo Git",
+        "where.r1c1": "El Google Doc \"en la nube\"",
+        "where.r1c2": "El <strong>repositorio remoto</strong> (en GitHub)",
+        "where.r2c1": "El doc abierto en tu navegador",
+        "where.r2c2": "Tu <strong>copia local</strong> (en tu computadora)",
+        "where.r3c1": "Una carpeta compartida en Drive con muchos docs",
+        "where.r3c2": "Un <strong>repositorio</strong> (proyecto con todos sus archivos)",
+
+        "actions.title": "Las acciones que haces",
+        "actions.col3": "Comando",
+        "actions.r1c1": "Abrir un doc compartido (primera vez)",
+        "actions.r2c1": "Refrescar para ver cambios de otros",
+        "actions.r3c1": "Escribir en el doc",
+        "actions.r3c2": "Editar archivos",
+        "actions.r3c3": "(editas normalmente)",
+        "actions.r4c1": "Ctrl+S... broma, Google guarda automáticamente",
+        "actions.r5c1": "Tus ediciones aparecen para todos",
+        "actions.r6c1": "\"Hacer una copia\"",
+        "actions.r6c3": "Botón Fork en GitHub",
+
+        "twostep.title": "El guardado en dos pasos",
+        "twostep.subtitle": "La mayor diferencia con Google Docs",
+        "twostep.step1": "<strong>Paso 1: Preparar</strong> &mdash; <code>git add</code><br>\"Estos son los cambios que quiero incluir\"",
+        "twostep.step2": "<strong>Paso 2: Commit</strong> &mdash; <code>git commit -m \"mensaje\"</code><br>\"Guardar esto como un checkpoint con nombre\"",
+        "twostep.step3": "<strong>Paso 3: Push</strong> &mdash; <code>git push</code><br>\"Compartirlo con el equipo\"",
+        "twostep.analogy": "Como editar un Google Doc en <strong>modo offline</strong>, y después elegir qué cambios sincronizar cuando vuelvas a estar online.",
+
+        "part2.label": "Parte 2",
+        "part2.title": "Manos a la obra: Tu primer repo",
+        "part2.subtitle": "Crear un documento compartido, al estilo Git",
+
+        "ex1.title": "Ejercicio: Unite al doc del equipo",
+        "ex1.code": "# Paso 1: Obtener el proyecto\ngit clone <workshop-repo-url>\ncd workshop-repo\n\n# Paso 2: Editar el archivo\n# (Agrega tu nombre y un dato curioso)\n\n# Paso 3: Guardar un checkpoint\ngit add .\ngit commit -m \"Agrego [tu nombre] a la lista del equipo\"\n\n# Paso 4: Compartir con todos\ngit push",
+
+        "pushfail.title": "Cuando <code>git push</code> falla",
+        "pushfail.desc": "Alguien más hizo push primero. Igual que cuando Google Docs dice<br>\"esta sección fue editada por otra persona.\"",
+        "pushfail.code": "# Primero obtené sus cambios\ngit pull\n\n# Ahora compartí los tuyos\ngit push",
+        "pushfail.checkpoint": "<strong>Checkpoint:</strong> Todos deberían ver todos los nombres en el repo en GitHub.",
+
+        "part3.label": "Parte 3",
+        "part3.title": "Modo Sugerencia",
+        "part3.subtitle": "Branches y Pull Requests",
+
+        "collab.title": "El problema de la colaboración",
+        "collab.gdocs": "5 personas editan a la vez &mdash; funciona porque todos ven los cambios <strong>en tiempo real</strong>",
+        "collab.git": "Trabajás en <strong>tu propia copia</strong>.<br>Entonces, cómo evitás el caos?",
+        "collab.answer": "<strong>Branches (\"Ramas\").</strong>",
+
+        "branches.title": "Branches = Modo Sugerencia",
+        "branches.r1c1": "Cambiar a modo \"Sugerencias\"",
+        "branches.r1c2": "Crear un <strong>branch</strong>",
+        "branches.r2c1": "Hacer tus ediciones sugeridas",
+        "branches.r2c2": "Hacer <strong>commits</strong> en tu branch",
+        "branches.r3c1": "El propietario revisa tus sugerencias",
+        "branches.r3c2": "Abrir un <strong>Pull Request</strong> (PR)",
+        "branches.r4c1": "Aceptan / rechazan / comentan",
+        "branches.r4c2": "<strong>Code review</strong> en el PR",
+        "branches.r5c1": "Aceptar todas las sugerencias",
+        "branches.r5c2": "<strong>Merge</strong> del PR",
+
+        "whynot.title": "Por qué no editar el doc principal directamente?",
+        "whynot.reason1": "Por la misma razón que usarías modo Sugerencias: para que el equipo pueda <strong>revisar</strong> antes de que los cambios se publiquen",
+        "whynot.reason2": "El branch <code>main</code> = la <strong>\"versión publicada\"</strong> de tu documento",
+        "whynot.reason3": "Tus branches = <strong>borradores y sugerencias</strong>",
+
+        "ex2.title": "Ejercicio: Sugerir un cambio",
+        "ex2.code": "# 1. Crear tu espacio de sugerencia\ngit checkout -b agregar-herramienta-favorita\n\n# 2. Hacer tu edición\n#    (Agregá tu herramienta favorita a la lista)\n\n# 3. Guardar y compartir\ngit add .\ngit commit -m \"Agrego [herramienta] como mi favorita\"\ngit push -u origin agregar-herramienta-favorita\n\n# 4. Abrir un Pull Request en GitHub\n# 5. Revisar el PR de otra persona\n# 6. Merge!",
+
+        "part4.label": "Parte 4",
+        "part4.title": "Cuando dos personas editan la misma línea",
+        "part4.subtitle": "Conflictos de merge",
+
+        "conflict.title": "Conflictos de merge",
+        "conflict.gdocs": "Dos cursores en el mismo párrafo &mdash; simplemente funciona, en tiempo real",
+        "conflict.git": "Dos personas cambian la misma línea en branches distintos &mdash; Git pregunta: <strong>\"con cuál versión me quedo?\"</strong>",
+
+        "conflict2.title": "Parece asustador, pero es solo una pregunta",
+        "conflict2.ours": "El mejor color es el azul",
+        "conflict2.theirs": "El mejor color es el verde",
+        "conflict2.translation": "Traducción: \"Vos dijiste azul, ellos dijeron verde.<br><strong>Cuál es?</strong>\"",
+        "conflict2.resolution": "Elegí uno (o combinalos), borrá los marcadores, y hacé commit.",
+
+        "part5.label": "Parte 5",
+        "part5.title": "Tu flujo de trabajo diario",
+        "part5.subtitle": "La rutina de \"Google Docs\", traducida",
+
+        "daily.title": "Cada día, traducido",
+        "daily.col1": "Lo que estás pensando",
+        "daily.col2": "Lo que escribís",
+        "daily.r1c1": "\"Dejame obtener la última versión\"",
+        "daily.r2c1": "\"Voy a trabajar en X\"",
+        "daily.r3c1": "(haces tu trabajo)",
+        "daily.r3c2": "(editas archivos normalmente)",
+        "daily.r4c1": "\"Guardar mi progreso\"",
+        "daily.r5c1": "\"Compartir para revisión\"",
+        "daily.r6c1": "\"Mi PR fue aprobado!\"",
+        "daily.r6c2": "Merge en GitHub",
+        "daily.r7c1": "\"Volver al doc principal\"",
+
+        "cheat.started": "Para empezar",
+        "cheat.clone": "Copiar un proyecto",
+        "cheat.pull": "Obtener últimos cambios",
+        "cheat.saving": "Guardar tu trabajo",
+        "cheat.add": "Preparar cambios",
+        "cheat.commit": "Guardar checkpoint",
+        "cheat.push": "Compartir con el equipo",
+        "cheat.branches": "Branches (Modo Sugerencia)",
+        "cheat.newbranch": "Nuevo branch",
+        "cheat.backmain": "Volver a main",
+        "cheat.sharebranch": "Compartir branch",
+        "cheat.status": "Verificar estado",
+        "cheat.statusdesc": "Qué cambié?",
+        "cheat.logdesc": "Qué checkpoints existen?",
+        "cheat.diffdesc": "Qué cambié exactamente?",
+
+        "takeaways.title": "Puntos clave",
+        "takeaways.t1title": "Git = historial de versiones que vos controlas",
+        "takeaways.t1desc": "Mismo concepto que Google Docs, pero vos elegís cuándo guardar checkpoints",
+        "takeaways.t2title": "GitHub = tu Drive compartido",
+        "takeaways.t2desc": "Donde vive la versión oficial del equipo",
+        "takeaways.t3title": "Branches = Modo Sugerencia",
+        "takeaways.t3desc": "Trabaja en tu idea sin tocar el documento principal",
+        "takeaways.t4title": "Pull Requests = el paso de revisión",
+        "takeaways.t4desc": "El equipo mira tus sugerencias antes de aceptarlas",
+        "takeaways.conflicts": "<strong>Los conflictos de merge no son errores</strong> &mdash; es Git preguntándote que decidas, como cuando dos personas editan la misma celda en una planilla.",
+
+        "end.title": "Preguntas?",
+        "end.nav": "Navegar: flechas del teclado | Vista general: <code style=\"color:#8b949e; background:none;\">Esc</code>",
+      }
+    };
+
+    let currentLang = 'es';
+
+    function applyLanguage(lang) {
+      currentLang = lang;
+      const translations = i18n[lang];
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[key] !== undefined) {
+          el.innerHTML = translations[key];
+        }
+      });
+
+      document.querySelectorAll('[data-i18n-text]').forEach(el => {
+        const key = el.getAttribute('data-i18n-text');
+        if (translations[key] !== undefined) {
+          el.textContent = translations[key];
+        }
+      });
+
+      document.documentElement.lang = lang;
+    }
+
+    function detectLanguage() {
+      return window.location.pathname.startsWith('/en') ? 'en' : 'es';
+    }
+
+    window.addEventListener('popstate', () => {
+      applyLanguage(detectLanguage());
+    });
+
+    Reveal.initialize({
+      hash: true,
+      slideNumber: true,
+      transition: 'slide',
+      transitionSpeed: 'default',
+      center: true,
+      width: 1200,
+      height: 700,
+      margin: 0.08,
+    }).then(() => {
+      applyLanguage(detectLanguage());
+    });
+  </script>
+</body>
+</html>
