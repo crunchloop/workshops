@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.5.7"
+  required_version = ">= 1.5.0"
 
   backend "s3" {
     bucket  = "terraform-crunchloop-aws"
@@ -11,18 +11,21 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 6.20"
+      version = "~> 5.0"
     }
   }
 }
 
 locals {
-  aws_region  = "sa-east-1"
-  github_repo = "crunchloop/workshops"
+  github_repo      = "crunchloop/workshops"
+  account_id       = data.aws_caller_identity.current.account_id
+  region           = data.aws_region.current.name
+  eks_cluster_name = data.terraform_remote_state.eks.outputs.cluster_name
+  oidc_issuer      = replace(data.terraform_remote_state.eks.outputs.oidc_provider_arn, "/^(.*provider/)/", "")
 }
 
 provider "aws" {
-  region  = local.aws_region
+  region  = "sa-east-1"
   profile = "development"
 
   allowed_account_ids = [
@@ -38,7 +41,9 @@ provider "aws" {
   }
 }
 
-# Remote state: EKS cluster (for OIDC provider)
+data "aws_caller_identity" "current" {}
+data "aws_region" "current" {}
+
 data "terraform_remote_state" "eks" {
   backend = "s3"
   config = {
@@ -48,6 +53,3 @@ data "terraform_remote_state" "eks" {
     profile = "crunchloop"
   }
 }
-
-# AWS caller identity
-data "aws_caller_identity" "current" {}
