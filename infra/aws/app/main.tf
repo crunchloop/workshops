@@ -42,9 +42,10 @@ provider "aws" {
 data "terraform_remote_state" "eks" {
   backend = "s3"
   config = {
-    bucket = "terraform-crunchloop-aws"
-    key    = "crunchloop-k8-dev.tfstate"
-    region = "us-east-1"
+    bucket  = "terraform-crunchloop-aws"
+    key     = "crunchloop-k8-dev.tfstate"
+    region  = "us-east-1"
+    profile = "crunchloop"
   }
 }
 

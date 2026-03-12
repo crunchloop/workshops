@@ -2,9 +2,10 @@
 data "terraform_remote_state" "oidc" {
   backend = "s3"
   config = {
-    bucket = "terraform-crunchloop-aws"
-    key    = "crunchloop-oidc-dev.tfstate"
-    region = "us-east-1"
+    bucket  = "terraform-crunchloop-aws"
+    key     = "crunchloop-oidc-dev.tfstate"
+    region  = "us-east-1"
+    profile = "crunchloop"
   }
 }
 
