@@ -6,6 +6,7 @@
   <title>Git &amp; GitHub Workshop</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/css/xterm.min.css">
   <style>
     :root {
       --r-heading-color: #24292e;
@@ -224,6 +225,94 @@
       margin-bottom: 0.2em;
     }
 
+    .exercise-layout {
+      display: flex;
+      gap: 1.5em;
+      align-items: stretch;
+      width: 100%;
+      height: 100%;
+      min-height: 450px;
+    }
+
+    .exercise-layout .instructions {
+      flex: 0 0 38%;
+      text-align: left;
+      font-size: 0.7em;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .exercise-layout .instructions h2 {
+      font-size: 1.4em;
+      margin-bottom: 0.3em;
+    }
+
+    .exercise-layout .instructions ol {
+      margin: 0.3em 0;
+      padding-left: 1.2em;
+    }
+
+    .exercise-layout .instructions li {
+      margin-bottom: 0.4em;
+    }
+
+    .terminal-container {
+      flex: 1;
+      background: #1e1e1e;
+      border-radius: 8px;
+      padding: 8px;
+      min-height: 400px;
+      display: flex;
+      align-items: stretch;
+      position: relative;
+    }
+
+    .terminal-container .xterm {
+      width: 100%;
+      height: 100%;
+    }
+
+    .terminal-container .xterm-viewport {
+      overflow-y: auto !important;
+    }
+
+    .github-slide {
+      text-align: center;
+    }
+
+    .github-slide .screenshot-placeholder {
+      background: #f6f8fa;
+      border: 2px dashed #d1d5da;
+      border-radius: 12px;
+      padding: 3em 2em;
+      margin: 1em auto;
+      max-width: 70%;
+      color: #586069;
+      font-size: 0.85em;
+    }
+
+    .github-slide .screenshot-placeholder p {
+      margin: 0.3em 0;
+    }
+
+    .github-slide a.github-link {
+      display: inline-block;
+      margin-top: 0.8em;
+      padding: 0.5em 1.5em;
+      background: #2ea44f;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.85em;
+      font-weight: 600;
+    }
+
+    .github-slide a.github-link:hover {
+      background: #2c974b;
+    }
+
   </style>
 </head>
 <body>
@@ -378,9 +467,20 @@
       </section>
 
       <!-- EXERCISE 1 -->
-      <section>
-        <h2 data-i18n="ex1.title"></h2>
-        <pre><code data-i18n-text="ex1.code"></code></pre>
+      <section data-terminal>
+        <div class="exercise-layout">
+          <div class="instructions">
+            <h2 data-i18n="ex1.title"></h2>
+            <ol>
+              <li data-i18n="ex1.step1"></li>
+              <li data-i18n="ex1.step2"></li>
+              <li data-i18n="ex1.step3"></li>
+              <li data-i18n="ex1.step4"></li>
+            </ol>
+            <div class="warning-box" style="margin-top: 0.8em; max-width: 100%;" data-i18n="ex1.hint"></div>
+          </div>
+          <div class="terminal-container" id="terminal-ex1"></div>
+        </div>
       </section>
 
       <!-- WHEN PUSH FAILS -->
@@ -445,9 +545,54 @@
       </section>
 
       <!-- EXERCISE 2 -->
-      <section>
-        <h2 data-i18n="ex2.title"></h2>
-        <pre><code data-i18n-text="ex2.code"></code></pre>
+      <section data-terminal>
+        <div class="exercise-layout">
+          <div class="instructions">
+            <h2 data-i18n="ex2.title"></h2>
+            <ol>
+              <li data-i18n="ex2.step1"></li>
+              <li data-i18n="ex2.step2"></li>
+              <li data-i18n="ex2.step3"></li>
+              <li data-i18n="ex2.step4"></li>
+              <li data-i18n="ex2.step5"></li>
+              <li data-i18n="ex2.step6"></li>
+            </ol>
+          </div>
+          <div class="terminal-container" id="terminal-ex2"></div>
+        </div>
+      </section>
+
+      <!-- GITHUB: CREATE PR -->
+      <section class="github-slide">
+        <h2 data-i18n="gh.pr_create.title"></h2>
+        <div class="screenshot-placeholder">
+          <p data-i18n="gh.pr_create.instruction"></p>
+          <p style="font-size: 2em; margin: 0.3em 0;">Pull Request</p>
+          <p data-i18n="gh.pr_create.detail"></p>
+        </div>
+        <a class="github-link" href="https://github.com/crunchloop/git-workshop-for-docxers/pulls" target="_blank" rel="noopener" data-i18n="gh.open_github"></a>
+      </section>
+
+      <!-- GITHUB: REVIEW PR -->
+      <section class="github-slide">
+        <h2 data-i18n="gh.pr_review.title"></h2>
+        <div class="screenshot-placeholder">
+          <p data-i18n="gh.pr_review.instruction"></p>
+          <p style="font-size: 2em; margin: 0.3em 0;">Code Review</p>
+          <p data-i18n="gh.pr_review.detail"></p>
+        </div>
+        <a class="github-link" href="https://github.com/crunchloop/git-workshop-for-docxers/pulls" target="_blank" rel="noopener" data-i18n="gh.open_github"></a>
+      </section>
+
+      <!-- GITHUB: MERGE PR -->
+      <section class="github-slide">
+        <h2 data-i18n="gh.pr_merge.title"></h2>
+        <div class="screenshot-placeholder">
+          <p data-i18n="gh.pr_merge.instruction"></p>
+          <p style="font-size: 2em; margin: 0.3em 0;">Merge</p>
+          <p data-i18n="gh.pr_merge.detail"></p>
+        </div>
+        <a class="github-link" href="https://github.com/crunchloop/git-workshop-for-docxers/pulls" target="_blank" rel="noopener" data-i18n="gh.open_github"></a>
       </section>
 
       <!-- PART 4 HEADER -->
@@ -576,6 +721,8 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/lib/xterm.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-fit@0.10.0/lib/addon-fit.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
   <script>
     const i18n = {
@@ -661,7 +808,11 @@
         "part2.subtitle": "Create a shared document, Git-style",
 
         "ex1.title": "Exercise: Join the team doc",
-        "ex1.code": "# Step 1: Get the project\ngit clone <workshop-repo-url>\ncd workshop-repo\n\n# Step 2: Edit the file\n# (Add your name and one fun fact)\n\n# Step 3: Save a checkpoint\ngit add .\ngit commit -m \"Add [your name] to the team list\"\n\n# Step 4: Share with everyone\ngit push",
+        "ex1.step1": "Run <code>ls</code> to see the files in the repo",
+        "ex1.step2": "Open <code>team.md</code> and add your name:<br><code>echo \"| YourName | Fun fact |\" >> team.md</code>",
+        "ex1.step3": "Save a checkpoint:<br><code>git add .</code><br><code>git commit -m \"Add [your name]\"</code>",
+        "ex1.step4": "Share with everyone:<br><code>git push</code>",
+        "ex1.hint": "If <code>git push</code> fails, run <code>git pull --rebase</code> first, then push again.",
 
         "pushfail.title": "When <code>git push</code> fails",
         "pushfail.desc": "Someone else pushed first. Same as Google Docs saying<br>\"this section was edited by someone else.\"",
@@ -695,7 +846,23 @@
         "whynot.reason3": "Your branches = <strong>drafts and suggestions</strong>",
 
         "ex2.title": "Exercise: Suggest a change",
-        "ex2.code": "# 1. Create your suggestion space\ngit checkout -b add-favorite-tool\n\n# 2. Make your edit\n#    (Add your favorite tool to the list)\n\n# 3. Save and share\ngit add .\ngit commit -m \"Add [tool] as my favorite\"\ngit push -u origin add-favorite-tool\n\n# 4. Open a Pull Request on GitHub\n# 5. Review someone else's PR\n# 6. Merge!",
+        "ex2.step1": "Create your branch:<br><code>git checkout -b add-favorite-tool</code>",
+        "ex2.step2": "Edit <code>favorite-tools.md</code>:<br><code>echo \"| YourName | Tool | Why |\" >> favorite-tools.md</code>",
+        "ex2.step3": "Save and share:<br><code>git add .</code><br><code>git commit -m \"Add [tool] as my favorite\"</code><br><code>git push -u origin add-favorite-tool</code>",
+        "ex2.step4": "Open a Pull Request on GitHub (next slide)",
+        "ex2.step5": "Review someone else's PR",
+        "ex2.step6": "Merge!",
+
+        "gh.pr_create.title": "Create a Pull Request",
+        "gh.pr_create.instruction": "On GitHub, click \"Compare & pull request\" for your branch",
+        "gh.pr_create.detail": "Add a title and description, then click \"Create pull request\"",
+        "gh.pr_review.title": "Review a PR",
+        "gh.pr_review.instruction": "Open a teammate's PR and review their changes",
+        "gh.pr_review.detail": "Leave a comment or approve the PR",
+        "gh.pr_merge.title": "Merge the PR",
+        "gh.pr_merge.instruction": "Once approved, click \"Merge pull request\"",
+        "gh.pr_merge.detail": "The changes are now in the main branch!",
+        "gh.open_github": "Open GitHub",
 
         "part4.label": "Part 4",
         "part4.title": "When Two People Edit the Same Line",
@@ -841,7 +1008,11 @@
         "part2.subtitle": "Crear un documento compartido, al estilo Git",
 
         "ex1.title": "Ejercicio: Unite al doc del equipo",
-        "ex1.code": "# Paso 1: Obtener el proyecto\ngit clone <workshop-repo-url>\ncd workshop-repo\n\n# Paso 2: Editar el archivo\n# (Agrega tu nombre y un dato curioso)\n\n# Paso 3: Guardar un checkpoint\ngit add .\ngit commit -m \"Agrego [tu nombre] a la lista del equipo\"\n\n# Paso 4: Compartir con todos\ngit push",
+        "ex1.step1": "Ejecuta <code>ls</code> para ver los archivos del repo",
+        "ex1.step2": "Abrí <code>team.md</code> y agregá tu nombre:<br><code>echo \"| TuNombre | Dato curioso |\" >> team.md</code>",
+        "ex1.step3": "Guardá un checkpoint:<br><code>git add .</code><br><code>git commit -m \"Agrego [tu nombre]\"</code>",
+        "ex1.step4": "Compartí con todos:<br><code>git push</code>",
+        "ex1.hint": "Si <code>git push</code> falla, ejecutá <code>git pull --rebase</code> primero, después push de nuevo.",
 
         "pushfail.title": "Cuando <code>git push</code> falla",
         "pushfail.desc": "Alguien más hizo push primero. Igual que cuando Google Docs dice<br>\"esta sección fue editada por otra persona.\"",
@@ -875,7 +1046,23 @@
         "whynot.reason3": "Tus branches = <strong>borradores y sugerencias</strong>",
 
         "ex2.title": "Ejercicio: Sugerir un cambio",
-        "ex2.code": "# 1. Crear tu espacio de sugerencia\ngit checkout -b agregar-herramienta-favorita\n\n# 2. Hacer tu edición\n#    (Agregá tu herramienta favorita a la lista)\n\n# 3. Guardar y compartir\ngit add .\ngit commit -m \"Agrego [herramienta] como mi favorita\"\ngit push -u origin agregar-herramienta-favorita\n\n# 4. Abrir un Pull Request en GitHub\n# 5. Revisar el PR de otra persona\n# 6. Merge!",
+        "ex2.step1": "Creá tu branch:<br><code>git checkout -b agregar-herramienta-favorita</code>",
+        "ex2.step2": "Editá <code>favorite-tools.md</code>:<br><code>echo \"| TuNombre | Herramienta | Por qué |\" >> favorite-tools.md</code>",
+        "ex2.step3": "Guardá y compartí:<br><code>git add .</code><br><code>git commit -m \"Agrego [herramienta] como mi favorita\"</code><br><code>git push -u origin agregar-herramienta-favorita</code>",
+        "ex2.step4": "Abrí un Pull Request en GitHub (siguiente slide)",
+        "ex2.step5": "Revisá el PR de otra persona",
+        "ex2.step6": "Merge!",
+
+        "gh.pr_create.title": "Crear un Pull Request",
+        "gh.pr_create.instruction": "En GitHub, hacé clic en \"Compare & pull request\" para tu branch",
+        "gh.pr_create.detail": "Agregá un título y descripción, después hacé clic en \"Create pull request\"",
+        "gh.pr_review.title": "Revisar un PR",
+        "gh.pr_review.instruction": "Abrí el PR de un compañero y revisá sus cambios",
+        "gh.pr_review.detail": "Dejá un comentario o aprobá el PR",
+        "gh.pr_merge.title": "Mergear el PR",
+        "gh.pr_merge.instruction": "Una vez aprobado, hacé clic en \"Merge pull request\"",
+        "gh.pr_merge.detail": "Los cambios ahora están en el branch principal!",
+        "gh.open_github": "Abrir GitHub",
 
         "part4.label": "Parte 4",
         "part4.title": "Cuando dos personas editan la misma línea",
@@ -982,7 +1169,162 @@
       margin: 0.08,
     }).then(() => {
       applyLanguage(detectLanguage());
+      initTerminalManager();
     });
+
+    // Terminal Manager
+    function initTerminalManager() {
+      let ws = null;
+      let term = null;
+      let fitAddon = null;
+      let currentContainer = null;
+      let userName = null;
+      let connected = false;
+
+      function isTerminalSlide(slide) {
+        return slide && slide.hasAttribute('data-terminal');
+      }
+
+      function getContainerInSlide(slide) {
+        return slide ? slide.querySelector('.terminal-container') : null;
+      }
+
+      function promptAndConnect() {
+        if (userName) return connectWS();
+
+        const lang = currentLang;
+        const namePrompt = lang === 'es'
+          ? 'Ingresá tu nombre para la terminal:'
+          : 'Enter your name for the terminal:';
+        const name = prompt(namePrompt);
+        if (!name || !name.trim()) {
+          userName = 'Workshop User';
+        } else {
+          userName = name.trim();
+        }
+        connectWS();
+      }
+
+      function connectWS() {
+        if (connected && ws && ws.readyState === WebSocket.OPEN) {
+          attachToCurrentSlide();
+          return;
+        }
+
+        const protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const email = userName.toLowerCase().replace(/\s+/g, '.') + '@workshop.local';
+        ws = new WebSocket(`${protocol}//${location.host}/?name=${encodeURIComponent(userName)}&email=${encodeURIComponent(email)}`);
+
+        ws.onopen = () => {
+          connected = true;
+          if (!term) {
+            term = new Terminal({
+              cursorBlink: true,
+              fontSize: 14,
+              fontFamily: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace',
+              theme: {
+                background: '#1e1e1e',
+                foreground: '#d4d4d4',
+                cursor: '#d4d4d4',
+              },
+            });
+            fitAddon = new FitAddon.FitAddon();
+            term.loadAddon(fitAddon);
+
+            term.onData((data) => {
+              if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({ type: 'input', data }));
+              }
+            });
+          }
+          attachToCurrentSlide();
+        };
+
+        ws.onmessage = (event) => {
+          try {
+            const msg = JSON.parse(event.data);
+            if (msg.type === 'output' && term) {
+              term.write(msg.data);
+            }
+          } catch {}
+        };
+
+        ws.onclose = () => {
+          connected = false;
+          console.log('Terminal WebSocket closed');
+        };
+
+        ws.onerror = (err) => {
+          connected = false;
+          console.error('Terminal WebSocket error:', err);
+        };
+      }
+
+      function attachToCurrentSlide() {
+        const slide = Reveal.getCurrentSlide();
+        if (!isTerminalSlide(slide)) return;
+        const container = getContainerInSlide(slide);
+        if (!container || !term) return;
+
+        if (currentContainer === container && container.querySelector('.xterm')) {
+          // Already attached here
+          fitAddon.fit();
+          return;
+        }
+
+        // Move terminal to this container
+        if (term.element && term.element.parentElement) {
+          // Detach without disposing
+          term.element.parentElement.removeChild(term.element);
+        }
+
+        if (!term._initialized) {
+          term.open(container);
+          term._initialized = true;
+        } else {
+          container.appendChild(term.element);
+        }
+        currentContainer = container;
+
+        // Fit after a brief delay for layout
+        setTimeout(() => {
+          fitAddon.fit();
+          const dims = fitAddon.proposeDimensions();
+          if (dims && ws && ws.readyState === WebSocket.OPEN) {
+            ws.send(JSON.stringify({ type: 'resize', cols: dims.cols, rows: dims.rows }));
+          }
+          term.focus();
+        }, 100);
+      }
+
+      // Listen for slide changes
+      Reveal.on('slidechanged', (event) => {
+        if (isTerminalSlide(event.currentSlide)) {
+          if (!userName) {
+            promptAndConnect();
+          } else {
+            attachToCurrentSlide();
+          }
+        }
+      });
+
+      // Handle window resize
+      window.addEventListener('resize', () => {
+        if (term && fitAddon && currentContainer) {
+          fitAddon.fit();
+          const dims = fitAddon.proposeDimensions();
+          if (dims && ws && ws.readyState === WebSocket.OPEN) {
+            ws.send(JSON.stringify({ type: 'resize', cols: dims.cols, rows: dims.rows }));
+          }
+        }
+      });
+
+      // Check if we loaded directly onto a terminal slide
+      const initialSlide = Reveal.getCurrentSlide();
+      if (isTerminalSlide(initialSlide)) {
+        promptAndConnect();
+      }
+    }
   </script>
 </body>
 </html>
