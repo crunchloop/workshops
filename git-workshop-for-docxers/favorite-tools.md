@@ -6,6 +6,6 @@ Add your favorite tool to the list!
 |------|------|------|
 | Damian | Vim | It's always there |
 | Participant 1 | ? | ? |
-| Participant 2 | ? | ? |
+| Rocio | n8n | is good |
 | Participant 3 | ? | ? |
 | Participant 4 | ? | ? |
