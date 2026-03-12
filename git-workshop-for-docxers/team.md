@@ -6,6 +6,6 @@ Add your name and a fun fact below!
 |------|----------|
 | Damian | I like hockey |
 | Participant 1 | ? |
-| Participant 2 | ? |
+| Rocio | :3 |
 | Participant 3 | ? |
 | Participant 4 | ? |
